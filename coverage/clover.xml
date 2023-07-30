@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1690741651591" clover="3.2.0">
+  <project timestamp="1690741651591" name="All files">
+    <metrics statements="20" coveredstatements="19" conditionals="6" coveredconditionals="5" methods="7" coveredmethods="7" elements="33" coveredelements="31" complexity="0" loc="20" ncloc="20" packages="1" files="1" classes="1"/>
+    <file name="eventRouter.ts" path="/home/john/g/es-node-ts/event/eventRouter.ts">
+      <metrics statements="20" coveredstatements="19" conditionals="6" coveredconditionals="5" methods="7" coveredmethods="7"/>
+      <line num="1" count="1" type="stmt"/>
+      <line num="9" count="10" type="cond" truecount="0" falsecount="1"/>
+      <line num="10" count="0" type="stmt"/>
+      <line num="13" count="10" type="stmt"/>
+      <line num="14" count="10" type="stmt"/>
+      <line num="15" count="10" type="cond" truecount="3" falsecount="0"/>
+      <line num="16" count="5" type="cond" truecount="1" falsecount="0"/>
+      <line num="19" count="9" type="cond" truecount="1" falsecount="0"/>
+      <line num="20" count="5" type="stmt"/>
+      <line num="21" count="8" type="stmt"/>
+      <line num="25" count="4" type="stmt"/>
+      <line num="28" count="1" type="stmt"/>
+      <line num="34" count="5" type="stmt"/>
+      <line num="35" count="5" type="stmt"/>
+      <line num="39" count="6" type="stmt"/>
+      <line num="40" count="6" type="stmt"/>
+      <line num="44" count="9" type="stmt"/>
+      <line num="45" count="9" type="stmt"/>
+      <line num="46" count="10" type="stmt"/>
+      <line num="49" count="9" type="stmt"/>
+    </file>
+  </project>
+</coverage>
