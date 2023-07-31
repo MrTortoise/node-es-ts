@@ -28,7 +28,7 @@ describe("eventstore  will write events and route them to appropiate projections
     }
   });
 
-  it("will forward the event to any matching handlers / projections", async () => {
+  it("will not forward the event to any not matching handlers / projections", async () => {
     let result: Event;
     const handler = {
       handle: (e: Event) => {
@@ -44,5 +44,23 @@ describe("eventstore  will write events and route them to appropiate projections
     });
 
     expect(result).toBeUndefined();
+  });
+
+  it("will forward the event to any matching handlers / projections", async () => {
+    let result: Event;
+    const handler = {
+      handle: (e: Event) => {
+        result = e;
+      }
+    }
+
+    router.registerForEvent("test", { type: "created" }, handler);
+    await eventStore.writeToStream("doesntMatter", -1, {
+      type: "created",
+      position: 0,
+      data: { key: "dave" },
+    });
+
+    expect(result.data.key).toEqual("dave");
   });
 });
