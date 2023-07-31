@@ -2,16 +2,14 @@ import { EventRouter, Handler, Matcher } from "./eventRouter";
 import { Stream, Event } from "./types";
 
 export interface IEventStore {
-  writeToStream(streamName: string, event: Event): Promise<void>
+  writeToStream(streamName: string, event: Event): Promise<Event>
   readStream(streamName: string): Promise<Stream>
 }
-
-export type StoredEvent = Event & {position:number}
 
 export class EventStore {
   private store: IEventStore;
   private router: EventRouter;
-  
+
   constructor(store: IEventStore, router: EventRouter) {
     this.store = store
     this.router = router
@@ -26,8 +24,8 @@ export class EventStore {
     if (stream.currentPosition != currentPosition)
       throw new Error("incorrect stream position");
 
-    await this.store.writeToStream(streamId, event);
-    this.router.routeEvent(event);
+    const e = await this.store.writeToStream(streamId, event);
+    this.router.routeEvent(e);
   }
 
   async readStream(streamId: string): Promise<Stream> {

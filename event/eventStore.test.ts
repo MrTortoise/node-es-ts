@@ -14,7 +14,7 @@ describe("eventstore  will write events and route them to appropiate projections
 
   it("will store an event", async () => {
     const streamName = "streamName";
-    await eventStore.writeToStream(streamName, -1, { type: "test", data: { name: "dave" } });
+    await eventStore.writeToStream(streamName, -1, { type: "test", position: 'notWrittenYet', data: { name: "dave" } });
     const stream = await eventStore.readStream(streamName);
     expect(stream.events[0].data.name).toEqual("dave");
   });
@@ -22,7 +22,7 @@ describe("eventstore  will write events and route them to appropiate projections
   it("will throw if stream is in wrong position", async () => {
     const streamName = "streamName";
     try {
-      await eventStore.writeToStream(streamName, 0, { type: "test",  data: { name: "dave" } });
+      await eventStore.writeToStream(streamName, 0, { type: "test", position: 'notWrittenYet', data: { name: "dave" } });
     } catch (e) {
       expect(e).toEqual(new Error("incorrect stream position"));
     }
@@ -40,6 +40,7 @@ describe("eventstore  will write events and route them to appropiate projections
     await eventStore.writeToStream("doesntMatter", -1, {
       type: "created",
       data: { key: "dave" },
+      position: 'notWrittenYet',
     });
 
     expect(result).toBeUndefined();
@@ -57,6 +58,7 @@ describe("eventstore  will write events and route them to appropiate projections
     await eventStore.writeToStream("doesntMatter", -1, {
       type: "created",
       data: { key: "dave" },
+      position: 'notWrittenYet',
     });
 
     expect(result.data.key).toEqual("dave");

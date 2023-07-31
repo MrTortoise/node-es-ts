@@ -4,6 +4,7 @@ export type Event<
 > = {
     type: EventType;
     data: EventData;
+    position: number | 'notWrittenYet' 
 };
 
 export type Command<

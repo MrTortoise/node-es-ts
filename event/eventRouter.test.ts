@@ -16,7 +16,7 @@ describe("readmodels want to specify what events they recievee", () => {
             { type: "BasketCreated" },
             handler
         );
-        router.routeEvent({ type: "BasketCreated", data: {} });
+        router.routeEvent({ type: "BasketCreated", position: 'notWrittenYet', data: {} });
 
         expect(result.type).toEqual("BasketCreated");
     });
@@ -36,8 +36,8 @@ describe("readmodels want to specify what events they recievee", () => {
             handler
         );
 
-        router.routeEvent({ type: "BasketCreated", data: {} });
-        router.routeEvent({ type: "ItemAddedToBasket", data: {} });
+        router.routeEvent({ type: "BasketCreated", data: {}, position: 'notWrittenYet' });
+        router.routeEvent({ type: "ItemAddedToBasket", data: {}, position: 'notWrittenYet' });
 
         expect(result).toEqual(["BasketCreated", "ItemAddedToBasket"]);
     });
@@ -56,9 +56,9 @@ describe("readmodels want to specify what events they recievee", () => {
             handler
         );
 
-        router.routeEvent({ type: "BasketCreated", data: {} });
-        router.routeEvent({ type: "ItemAddedToBasket", data: {} });
-        router.routeEvent({ type: "Dave", data: {} });
+        router.routeEvent({ type: "BasketCreated", data: {}, position: 'notWrittenYet' });
+        router.routeEvent({ type: "ItemAddedToBasket", data: {}, position: 'notWrittenYet' });
+        router.routeEvent({ type: "Dave", data: {}, position: 'notWrittenYet' });
 
         expect(result).toEqual(["BasketCreated", "ItemAddedToBasket"]);
     });
@@ -89,7 +89,7 @@ describe("readmodels want to specify what events they recievee", () => {
             { type: "BasketCreated" },
             handler2
         );
-        const inputEvent = { type: "BasketCreated", position: 0, data: {} };
+        const inputEvent : Event= { type: "BasketCreated", position: 'notWrittenYet', data: {} };
         router.routeEvent(inputEvent);
         expect(result1).toEqual(result2);
         expect(result1).toEqual(inputEvent);
@@ -108,9 +108,9 @@ describe("readmodels want to specify what events they recievee", () => {
             { type: "BasketCreated" },
             handler
         );
-        router.routeEvent({ type: "BasketCreated", data: {} });
-        router.routeEvent({ type: "Dave", data: {} });
+        router.routeEvent({ type: "BasketCreated", data: {}, position: 'notWrittenYet' });
+        router.routeEvent({ type: "Dave", data: {}, position: 'notWrittenYet' });
 
-        expect(result).toEqual([{ type: "BasketCreated", data: {} }]);
+        expect(result).toEqual([{ type: "BasketCreated", data: {}, position: 'notWrittenYet' }]);
     });
 });
