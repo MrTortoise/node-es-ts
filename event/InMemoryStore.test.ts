@@ -9,7 +9,7 @@ describe("In Memeory Store will", () => {
         await store.writeToStream('test', { type: 'TestEvent', position: 0, data: { key: 'dave' } })
         const s = await store.readStream('test')
 
-        expect(1).toBe(1)
+        expect(s).toEqual({"currentPosition": 0, "events": [{"data": {"key": "dave"}, "position": 0, "type": "TestEvent"}]})
 
     });
 

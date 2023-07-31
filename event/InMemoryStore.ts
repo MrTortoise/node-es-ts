@@ -1,6 +1,7 @@
+import { IEventStore } from "./EventStore";
 import { Streams, Stream, Event } from "./types"
 
-export class InMemoryStore {
+export class InMemoryStore implements IEventStore {
     streams: Streams
     // think dynamo db with an document that stores position and a list of events
     constructor() {
@@ -23,7 +24,7 @@ export class InMemoryStore {
         this.streams[streamName] = stream;
     }
 
-    async readStream(streamName: string) {
+    async readStream(streamName: string): Promise<Stream> {
         return this.streams[streamName];
     }
 }

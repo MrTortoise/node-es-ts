@@ -1,3 +1,9 @@
 {
-    "jest.jestCommandLine": "yarn jest"
+  "jest.jestCommandLine": "yarn jest",
+  "search.exclude": {
+    "**/.yarn": true,
+    "**/.pnp.*": true
+  },
+  "typescript.tsdk": ".yarn/sdks/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true
 }
