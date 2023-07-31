@@ -6,9 +6,12 @@ export interface IEventStore {
   readStream(streamName: string): Promise<Stream>
 }
 
+export type StoredEvent = Event & {position:number}
+
 export class EventStore {
   private store: IEventStore;
   private router: EventRouter;
+  
   constructor(store: IEventStore, router: EventRouter) {
     this.store = store
     this.router = router

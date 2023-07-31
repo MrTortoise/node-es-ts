@@ -1,4 +1,4 @@
-import { IEventStore } from "./EventStore";
+import { IEventStore, StoredEvent } from "./EventStore";
 import { Streams, Stream, Event } from "./types"
 
 export class InMemoryStore implements IEventStore {
@@ -11,12 +11,13 @@ export class InMemoryStore implements IEventStore {
     async writeToStream(streamName: string, event: Event): Promise<void> {
         let stream = this.streams[streamName];
         if (stream == undefined) {
-            event.position = 0;
-            stream = { events: [event], currentPosition: 0 };
+            const e: StoredEvent = {...event, position : 0};
+            stream = { events: [e], currentPosition: 0 };
         } else {
-            event.position = stream.events.length;
+            const e: StoredEvent = {...event, position : stream.events.length};
+            
             stream = {
-                events: [...stream.events, event],
+                events: [...stream.events, e],
                 currentPosition: stream.currentPosition++,
             };
         }

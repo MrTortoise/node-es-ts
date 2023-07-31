@@ -16,7 +16,7 @@ describe("readmodels want to specify what events they recievee", () => {
             { type: "BasketCreated" },
             handler
         );
-        router.routeEvent({ type: "BasketCreated", position: 0, data: {} });
+        router.routeEvent({ type: "BasketCreated", data: {} });
 
         expect(result.type).toEqual("BasketCreated");
     });
@@ -36,8 +36,8 @@ describe("readmodels want to specify what events they recievee", () => {
             handler
         );
 
-        router.routeEvent({ type: "BasketCreated", position: 0, data: {} });
-        router.routeEvent({ type: "ItemAddedToBasket", position: 0, data: {} });
+        router.routeEvent({ type: "BasketCreated", data: {} });
+        router.routeEvent({ type: "ItemAddedToBasket", data: {} });
 
         expect(result).toEqual(["BasketCreated", "ItemAddedToBasket"]);
     });
@@ -56,25 +56,25 @@ describe("readmodels want to specify what events they recievee", () => {
             handler
         );
 
-        router.routeEvent({ type: "BasketCreated", position: 0, data: {} });
-        router.routeEvent({ type: "ItemAddedToBasket", position: 0, data: {} });
-        router.routeEvent({ type: "Dave", position: 0, data: {} });
+        router.routeEvent({ type: "BasketCreated", data: {} });
+        router.routeEvent({ type: "ItemAddedToBasket", data: {} });
+        router.routeEvent({ type: "Dave", data: {} });
 
         expect(result).toEqual(["BasketCreated", "ItemAddedToBasket"]);
     });
 
     it("2 registrations, one sends event one way and the other another", () => {
         let router = new EventRouter();
-        let result1, result2;
+        let result1: Event, result2: Event;
 
         const handler = {
-            handle: (e) => {
+            handle: (e: Event) => {
                 result1 = e;
             },
         };
 
         const handler2 = {
-            handle: (e) => {
+            handle: (e: Event) => {
                 result2 = e;
             },
         };
@@ -108,9 +108,9 @@ describe("readmodels want to specify what events they recievee", () => {
             { type: "BasketCreated" },
             handler
         );
-        router.routeEvent({ type: "BasketCreated", position: 0, data: {} });
-        router.routeEvent({ type: "Dave", position: 0, data: {} });
+        router.routeEvent({ type: "BasketCreated", data: {} });
+        router.routeEvent({ type: "Dave", data: {} });
 
-        expect(result).toEqual([{ type: "BasketCreated", position: 0, data: {} }]);
+        expect(result).toEqual([{ type: "BasketCreated", data: {} }]);
     });
 });
