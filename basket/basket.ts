@@ -52,6 +52,7 @@ const getBasketDefaults = (): Basket => {
     const { type, data } = command
     switch (type) {
         case 'CreateBasket': {
+            if(state.status != 'notCreated' ) throw 'Basket Already Created'
             // validation logic on state (throw if invalid state)
             const e: BasketEvent = { type: 'BasketCreated', data, position: 'notWrittenYet' }
             return e;
