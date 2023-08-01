@@ -8,23 +8,32 @@ export class InMemoryStore implements IEventStore {
         this.streams = {}
     }
 
-    async writeToStream(streamName: string, event: Event): Promise<Event> {
+    async writeToStream(streamName: string, event: Event | Event[]): Promise<Event[]> {
         let stream = this.streams[streamName];
-        const eventToWrite = {...event}
+        const events = Array.isArray(event) ? event.map(e => { return { ...e } }) : [{ ...event }]
+
         if (stream == undefined) {
-            eventToWrite.position = 0
-            stream = { events: [eventToWrite], currentPosition: 0 };
+            const l = events.length
+            for (let i = 0; i < l; i++) {
+                events[i].position = i
+            }
+
+            stream = { events: events, currentPosition: l };
         } else {
-            eventToWrite.position = stream.events.length
-            
+            const start = stream.events.length
+            const l = events.length
+            for (let i = start; i < start + l; i++) {
+                events[i].position = i
+            }
+
             stream = {
-                events: [...stream.events, eventToWrite],
-                currentPosition: stream.currentPosition++,
+                events: [...stream.events, ...events],
+                currentPosition: stream.currentPosition + l,
             };
         }
 
         this.streams[streamName] = stream;
-        return eventToWrite
+        return events
     }
 
     async readStream(streamName: string): Promise<Stream> {
