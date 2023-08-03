@@ -17,11 +17,11 @@ export type BasketCommand = {
 }
 
 export type BasketEvent =
-    | Event & {
+    | Omit<Event, 'data'> & {
         type: 'BasketCreated',
         data: { id: string }
     }
-    | Event & {
+    | Omit<Event, 'data'> & {
         type: 'ItemAdded',
         data: {
             item: IItem,
