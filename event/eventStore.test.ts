@@ -1,5 +1,5 @@
 import { EventStore } from "./EventStore";
-import { InMemoryStore } from "./InMemoryStore";
+import { InMemoryStore } from "../adapters/InMemoryStore";
 import { EventRouter } from "./eventRouter";
 import { Event } from "./types";
 

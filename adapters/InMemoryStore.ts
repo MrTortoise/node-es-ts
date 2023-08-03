@@ -1,5 +1,5 @@
-import { IEventStore } from "./EventStore";
-import { Streams, Stream, Event } from "./types"
+import { IEventStore } from "../event/EventStore";
+import { Streams, Stream, Event } from "../event/types"
 
 export class InMemoryStore implements IEventStore {
     streams: Streams

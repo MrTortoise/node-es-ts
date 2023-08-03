@@ -1,5 +1,5 @@
 import { EventStore } from "../event/EventStore"
-import { InMemoryStore } from "../event/InMemoryStore"
+import { InMemoryStore } from "../adapters/InMemoryStore"
 import { CommandHandler } from "../event/commandHandler"
 import { EventRouter } from "../event/eventRouter"
 import { Basket, BasketCommand, BasketEvent, BasketPolicyApplicator } from "./basket"

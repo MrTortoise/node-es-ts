@@ -1,5 +1,5 @@
 import { EventRouter, Handler, Matcher } from "../event/eventRouter"
-import { ProjectionStore } from "./ProjectionStore"
+import { ProjectionStore } from "../adapters/ProjectionStore"
 import { Projector } from "./projector"
 import {Event} from "../event/types"
 

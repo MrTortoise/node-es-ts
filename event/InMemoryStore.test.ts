@@ -1,6 +1,6 @@
 
 // import {describe, expect, it} from '@jest/globals';
-import { InMemoryStore } from "./InMemoryStore";
+import { InMemoryStore } from "../adapters/InMemoryStore";
 
 describe("In Memory Store will", () => {
     it('will write and read a stream', async () => {
