@@ -1,7 +1,4 @@
-import { EventStore } from "../event/EventStore"
-import { InMemoryStore } from "../event/InMemoryStore"
-import { EventRouter } from "../event/eventRouter"
-import { PolicyApplicator, Event, CommandHandler } from "../event/types"
+import { PolicyApplicator, Event } from "../event/types"
 
 export interface IItem {
     name: string

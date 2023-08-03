@@ -1,7 +1,7 @@
 import { EventStore } from "../event/EventStore"
 import { InMemoryStore } from "../event/InMemoryStore"
+import { CommandHandler } from "../event/commandHandler"
 import { EventRouter } from "../event/eventRouter"
-import { CommandHandler } from "../event/types"
 import { Basket, BasketCommand, BasketEvent, BasketPolicyApplicator } from "./basket"
 
 describe('basket will do things like', () => {

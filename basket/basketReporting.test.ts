@@ -1,47 +1,15 @@
 import { EventStore } from "../event/EventStore"
 import { InMemoryStore } from "../event/InMemoryStore"
-import { EventRouter, Handler, Matcher } from "../event/eventRouter"
-import { CommandHandler, Event } from "../event/types"
+import { CommandHandler } from "../event/commandHandler"
+import { EventRouter, Matcher } from "../event/eventRouter"
+import { Event } from "../event/types"
+import { ProjectionStore } from "../projection/ProjectionStore"
+import { ProjectionHandler } from "../projection/projectionHandler"
+import { Projector } from "../projection/projector"
 import { Basket, BasketCommand, BasketEvent, BasketPolicyApplicator } from "./basket"
 
 interface BasketReportItem { id: string }
 type BasketReport = Record<string, BasketReportItem>
-
-export type Projector<State> = {
-    applyEvent: (currentState: State, event: Event) => State;
-    getInitialState: () => State;
-};
-
-export class ProjectionStore {
-    private store: Record<string, unknown> = {}
-    put(id: string, data: unknown) {
-        this.store[id] = data
-    }
-    get<T>(id: string): T {
-        return this.store[id] as T
-    }
-}
-
-const ProjectionHandler = <State>(
-    getEventRouter: () => EventRouter,
-    getProjectionStore: () => ProjectionStore,
-    projectionName: string,
-    matcher: Matcher,
-    projection: Projector<State>) => {
-    const handler: Handler = {
-        handle: (event: Event) => {
-            const projectionStore = getProjectionStore()
-            const state = projectionStore.get<State>(projectionName) ?? projection.getInitialState()
-            const newState = projection.applyEvent(state, event)
-            projectionStore.put(projectionName, newState)
-        }
-    }
-
-    const router = getEventRouter()
-    router.registerForEvent(projectionName, matcher, handler)
-}
-
-
 
 describe('basket report listens for basket events and updates a set of basket data', () => {
     it('will maintain a lis tof created baskets', async () => {
@@ -71,7 +39,7 @@ describe('basket report listens for basket events and updates a set of basket da
 
                 return state
             },
-            getInitialState: ()=>{return {}}
+            getInitialState: () => { return {} }
         }
 
         const projectBasketModel = ProjectionHandler<BasketReport>(
@@ -81,10 +49,10 @@ describe('basket report listens for basket events and updates a set of basket da
             matcher,
             basketProjector)
 
-            await handleBasketCommand('dave', {type: 'CreateBasket',data:{id:'davesBasket'}})
-            
-            const result = projectionStore.get('testProjection')
-            expect(result).toEqual({"davesBasket": {"id": "davesBasket"}})
+        await handleBasketCommand('dave', { type: 'CreateBasket', data: { id: 'davesBasket' } })
+
+        const result = projectionStore.get('testProjection')
+        expect(result).toEqual({ "davesBasket": { "id": "davesBasket" } })
 
     })
 })
